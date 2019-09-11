@@ -1,0 +1,19 @@
+---
+title: "The Importance of Reliability"
+author: "Zach Kunicki & Rich Jones"
+header-includes:
+- \usepackage{tikz}
+- \usetikzlibrary{positioning,arrows.meta,quotes}
+output:
+  html_document: default
+#bibliography: reliability.bib
+---
+# Literature Review
+
+# Methods
+
+# Results
+
+# Discussion
+
+# References
