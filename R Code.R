@@ -15,3 +15,13 @@ Y = data[, 2]  # standard normal (mu=0, sd=1)
 
 cor.test(X, Y)
 
+library(faux)
+
+df <- cbind(X, Y)
+
+df <- as.data.frame(df)
+
+prob = c(.1, .2, .4, .2, .1)
+
+df$X.ordinal <- norm2likert(df$X, prob = prob, mu = 0, sd = 1)
+df$y.ordinal <- norm2likert(df$Y, prob=prob, mu = 0, sd = 1)
