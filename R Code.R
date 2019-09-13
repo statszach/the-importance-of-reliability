@@ -23,5 +23,16 @@ df <- as.data.frame(df)
 
 prob = c(.1, .2, .4, .2, .1)
 
-df$X.ordinal <- norm2likert(df$X, prob = prob, mu = 0, sd = 1)
-df$y.ordinal <- norm2likert(df$Y, prob=prob, mu = 0, sd = 1)
+df$x.ordinal <- norm2likert(df$X, prob = prob, mu = 0, sd = 1)
+df$y.ordinal <- norm2likert(df$Y, prob = prob, mu = 0, sd = 1)
+
+table(df$x.ordinal)
+table(df$y.ordinal)
+
+library(tidyverse)
+
+df.plot <- df %>% select(x.ordinal, y.ordinal)
+
+df.long <- df.plot %>% gather(label, key, x.ordinal:y.ordinal)
+
+ggplot(df.long, aes(x=key, color = label)) + geom_histogram(position = "identity")
