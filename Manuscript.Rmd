@@ -6,9 +6,11 @@ header-includes:
 - \usetikzlibrary{positioning,arrows.meta,quotes}
 output:
   html_document: default
-#bibliography: reliability.bib
+bibliography: reliability.bib
 ---
 # Literature Review
+
+@loevinger1954 says the attentuation paradox is bad.
 
 # Methods
 
