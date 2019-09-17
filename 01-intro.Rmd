@@ -1,0 +1,3 @@
+# Literature Review
+
+@loevinger1954 shows the attentuation paradox means classical test theory (CTT) reliability is bad. Item response theory (IRT) reliability, on the other hand, is good [@chengetal2012].

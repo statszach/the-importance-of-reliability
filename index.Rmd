@@ -1,0 +1,8 @@
+---
+title: "The Importance of Reliability"
+author: "Zach Kunicki & Rich Jones"
+date: "9/17/2019"
+site: bookdown::bookdown_site
+output: html_document
+bibliography: reliability.bib
+---
