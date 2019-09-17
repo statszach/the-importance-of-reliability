@@ -14,7 +14,7 @@ bibliography: reliability.bib
 
 # Methods
 
-We used some R packages to do these analyses [@R].
+We used some R packages to do these analyses [@R]. The MASS package was used to simulate data [@MASS].
 
 # Results
 
