@@ -2,10 +2,12 @@
 
 You should use the reliability coefficients we suggest.
 
-Some notes:
+## Some notes:
 
-the _bookdown.yml file lets you pick which .Rmds are compiled within a directory and in which order.
-
-There does not need to be a separate .Rmd for references and the References header does not need to be put at the end of the discussion. They are added automatically by bookdown.
+the _bookdown.yml file lets you pick which .Rmds are compiled within a directory and in which order. If you do not create this file, all .Rmds will be compiled in alphabetical order.
 
 The "master" file MUST be named index.Rmd
+
+A separate references .Rmd is not needed. Just place the header at the end of the discussion for the same effect.
+
+# References
