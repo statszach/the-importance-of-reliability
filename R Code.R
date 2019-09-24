@@ -10,6 +10,8 @@ library(tidyverse)
 
 ## Simulating Data with a Pre-Specified Correlation ##
 
+set.seed(2019)
+
 #code pulled from stackexchange here:
 # https://stats.stackexchange.com/questions/83172/generate-two-variables-with-precise-pre-specified-correlation?noredirect=1&lq=1
 
