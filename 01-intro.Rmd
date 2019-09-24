@@ -1,3 +1,25 @@
+# Concepts convered
+
+We will define the concept of reliability, and describe its relationship to agreement, repeatibility, internal consistency, and validity. Provide these concepts in a table or box.
+
+Reliability is defined in the sense of true score theory
+
+\[
+Y = T + E
+\]
+
+\[
+VAR(Y) = VAR(T) + VAR(E)
+\]
+
+\[
+REL(Y) = COR(Y,T)^2 = \frac{VAR(T)}{VAR(Y)} = \frac{VAR(T)}{VAR(T)+VAR(E)}
+\]
+
+Show the trick of how $COR(Y,T)$ is approximated with $COR(Y_1,Y_2)$.
+
+
+
 # Literature Review
 
 @loevinger1954 shows the attentuation paradox means classical test theory (CTT) reliability is bad. Item response theory (IRT) reliability, on the other hand, is good [@chengetal2012].
