@@ -16,8 +16,11 @@ VAR(Y) = VAR(T) + VAR(E)
 REL(Y) = COR(Y,T)^2 = \frac{VAR(T)}{VAR(Y)} = \frac{VAR(T)}{VAR(T)+VAR(E)}
 \]
 
+
 Show the trick of how $COR(Y,T)$ is approximated with $COR(Y_1,Y_2)$.
 
+
+What is interesting about $Y = T + E$ is that it implies that the true score and the error are uncorrelated ($COR(T,E) = 0$), because the variance sum law $VAR(a+b) = VAR(a) + VAR(b) + 2COV(a,b)$. Since the variance of the true score ($VAR(T)$) is uncorrelated with the error variance ($VAR(E)$), then we know that $VAR(T) = VAR(Y) - VAR(E)$ which says that the true score variance is completely contained by the observed score variance (i.e., there is no other source of variance in the true score).
 
 
 # Literature Review
