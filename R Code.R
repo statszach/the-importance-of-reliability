@@ -2,6 +2,9 @@
 ## The Importance of Reliability ##
 ###################################
 
+#install.packages("remotes")
+#remotes::install_github("debruine/faux")
+
 ## Loading Packages ##
 
 library(MASS)
