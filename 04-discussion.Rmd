@@ -1,0 +1,15 @@
+# Discussion
+
+You should use the reliability coefficients we suggest.
+
+This line is a test to see if two different portions of the document can be committed at the same time.
+
+## Some notes:
+
+the _bookdown.yml file lets you pick which .Rmds are compiled within a directory and in which order. If you do not create this file, all .Rmds will be compiled in alphabetical order.
+
+The "master" file MUST be named index.Rmd
+
+A separate references .Rmd is not needed. Just place the header at the end of the discussion for the same effect.
+
+# References
