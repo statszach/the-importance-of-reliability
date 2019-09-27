@@ -35,7 +35,7 @@ reliability_test <- function(n, r){
   diff_results <- diff %>% count(D)
   
   reliability_valid_results <- diff_results %>% filter(between(D, -1, 1)) 
-  n <- 0
+  n <- 0 #results will not compile if this line is not put in, not sure why
   reliability_valid <- reliability_valid_results %>% sum(n)/N
   
   reliability_notvalid_results <- diff_results %>% filter(!between(D, -1, 1))
