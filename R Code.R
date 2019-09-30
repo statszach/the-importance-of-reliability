@@ -10,18 +10,12 @@
 library(MASS)
 library(faux)
 library(tidyverse)
-
-
+library(purrr)
 
 ## Writing Function ##
 
 reliability_test <- function(obs, r){
 
-  library(MASS)
-  library(faux)
-  library(tidyverse)
-  
-  set.seed(2019)
   data = MASS::mvrnorm(n=obs, mu=c(0, 0), Sigma=matrix(c(1, r, r, 1), nrow=2), empirical=TRUE)
   X = data[, 1]  # standard normal (mu=0, sd=1)
   Y = data[, 2]  # standard normal (mu=0, sd=1)
@@ -53,20 +47,57 @@ reliability_test <- function(obs, r){
   # Wanted to print the table of results so we could see it easily, can take out or replace with
   # a histogram for data visualization.
   diff_results <- c(reliability_true,reliability_nottrue)
-  print(diff_results)
-  
-  print(df_results)
+  #print(diff_results)
   
   
   sprintf("proportion of true responses is: %g; proportion of non-true responses is: %g", reliability_true, reliability_nottrue)
-}
+  print(diff_results)
+  }
 
 reliability_test(20000, .8)
 reliability_test(20000, .7)
 
+iterate <- map(seq_len(1000), ~reliability_test(20000, .8))
+#This line runs the reliability_test function for nobs = 20000 and reliability = .8 for 1000 iterations
+
+iterate.t.df <- data.frame(matrix(unlist(iterate), nrow=length(iterate), byrow = T))
+#This unlists the iterate function and turns it into a dataframe. X1 = true, X2 = false
 
 
+#Below are notes taken in QSP/RJ Meetings on possible ways to set up an iteration fuction.
+#Notes stop at the #####
 
+#Set up data frame before iterating the function
+#Before 10 iterations, set up dataframe with 10 rows, have variable called "replicate"
+#numbered 1 to N, where N is number of replications
+
+#Edit function to return just p, not p, q -- or figure out how to parse the 2 parts of
+#the list
+iterate[[2]]
+
+df <- data.frame(true = iterate[1], false=iterate[2])
+
+it2 <-
+
+df = NULL
+for (k in 1:1000)
+{
+  true = iterate[1]
+  false = iterate[2]
+  df = rbind(df, data.frame(true,false))
+}
+
+#Use lapply or purrr to set up a dataframe with 1000 rows
+#mutate, results = purr(give function)
+#bsample function to put into purr command
+
+#edit function to save out just the proportion in agreement
+#alt: save out the dataframe, do the calculation afterwards. either approach would work
+
+#could save out the list, label first part the dataframe, second part the proportion, third part is whatever else, then save out the entire thing
+#then call for just the first part of the list (or whichever part is the dataframe/needed)
+
+#####
 
 
 ## Simulating Data with a Pre-Specified Correlation ##
