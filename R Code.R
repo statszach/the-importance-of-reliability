@@ -15,15 +15,12 @@ library(tidyverse)
 
 ## Writing Function ##
 
-# it was a problem that the function defined
-# n as an object and also that n
-# was a variable name in one of the data frames
-# reliability_test <- function(n, r){
 reliability_test <- function(obs, r){
-#r <- .8
-#n <- 20000
-#obs <- 20000
 
+  library(MASS)
+  library(faux)
+  library(tidyverse)
+  
   set.seed(2019)
   data = MASS::mvrnorm(n=obs, mu=c(0, 0), Sigma=matrix(c(1, r, r, 1), nrow=2), empirical=TRUE)
   X = data[, 1]  # standard normal (mu=0, sd=1)
@@ -38,47 +35,34 @@ reliability_test <- function(obs, r){
   df <- df %>% mutate(X_Ordinal = norm2likert(X, prob = prob),
                       Y_Ordinal = norm2likert(Y, prob = prob))
   
-  #diff <- df %>% mutate(D = X_Ordinal - Y_Ordinal) 
   df$D <- df$X_Ordinal - df$Y_Ordinal
   
-  #diff_results <- diff %>% count(D)
   df_results <- df %>% count(D)
   
-  # there is something wrong with
-  # using an object name containing "valid"
-  # when we are studying reliability
-  # JK/NJK
-  #reliability_valid_results <- diff_results %>% filter(between(D, -1, 1)) 
-  reliability_valid_results <- df_results %>% filter(between(D, -1, 1)) 
-  reliability_valid_results
-  4338+10416+4314
+  reliability_true_results <- df_results %>% filter(between(D, -1, 1)) 
+  reliability_true_results
   
-  # n <- 0 #results will not compile if this line is not put in, not sure why
+  reliability_true <- sum(reliability_true_results$n)/obs
+  reliability_true
   
-  # reliability_valid <- reliability_valid_results %>% sum(n)/N
-  reliability_valid <- sum(reliability_valid_results$n)/obs
-  reliability_valid
+  reliability_nottrue_results <- df_results %>% filter(!between(D, -1, 1))
+  reliability_nottrue_results
   
-  # reliability_notvalid_results <- diff_results %>% filter(!between(D, -1, 1))
-  reliability_notvalid_results <- df_results %>% filter(!between(D, -1, 1))
-  reliability_notvalid_results
+  reliability_nottrue <- sum(reliability_nottrue_results$n)/obs
   
-  reliability_notvalid <- sum(reliability_notvalid_results$n)/obs
-  
-  # NOT SURE WHAT YOU WANTED HERE
-  diff_results <- c(reliability_valid,reliability_notvalid)
+  # Wanted to print the table of results so we could see it easily, can take out or replace with
+  # a histogram for data visualization.
+  diff_results <- c(reliability_true,reliability_nottrue)
   print(diff_results)
   
-  sprintf("proportion of valid responses is: %g; proportion of invalid responses is: %g", reliability_valid, reliability_notvalid)
+  print(df_results)
+  
+  
+  sprintf("proportion of true responses is: %g; proportion of non-true responses is: %g", reliability_true, reliability_nottrue)
 }
 
 reliability_test(20000, .8)
 reliability_test(20000, .7)
-
-
-
-
-
 
 
 
