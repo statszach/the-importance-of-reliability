@@ -11,6 +11,7 @@ library(MASS)
 library(faux)
 library(tidyverse)
 library(purrr)
+library(psych)
 
 ## Writing Function ##
 
@@ -60,9 +61,17 @@ reliability_test(20000, .7)
 iterate <- map(seq_len(1000), ~reliability_test(20000, .8))
 #This line runs the reliability_test function for nobs = 20000 and reliability = .8 for 1000 iterations
 
-iterate.t.df <- data.frame(matrix(unlist(iterate), nrow=length(iterate), byrow = T))
+iterate.df <- data.frame(matrix(unlist(iterate), nrow=length(iterate), byrow = T))
 #This unlists the iterate function and turns it into a dataframe. X1 = true, X2 = false
 
+describe(iterate.df$X1)
+describe(iterate.df$X2)
+
+mean(iterate.df$X1)
+sd(iterate.df$X1)
+
+True.CI <- c(mean(iterate.df$X1) - 1.96*((sd(iterate.df$X1)/sqrt(100))), mean(iterate.df$X1) + 1.96*((sd(iterate.df$X1)/sqrt(100)))) 
+False.CI <- c(mean(iterate.df$X2) - 1.96*((sd(iterate.df$X2)/sqrt(100))), mean(iterate.df$X2) + 1.96*((sd(iterate.df$X2)/sqrt(100))))
 
 #Below are notes taken in QSP/RJ Meetings on possible ways to set up an iteration fuction.
 #Notes stop at the #####
