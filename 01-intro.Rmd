@@ -18,14 +18,14 @@ REL(Y) = COR(Y,T)^2 = \frac{VAR(T)}{VAR(Y)} = \frac{VAR(T)}{VAR(T)+VAR(E)}
 
 Show the trick of how $COR(Y,T)$ is approximated with $COR(Y_1,Y_2)$.
 
-Table: (\#tab:foo) Your table caption.
+Table: Reliability Types and their Definitions.
 
-| Sepal.Length| Sepal.Width| Petal.Length|
-|------------:|-----------:|------------:|
-|          5.1|         3.5|          1.4|
-|          4.9|         3.0|          1.4|
-|          4.7|         3.2|          1.3|
-|          4.6|         3.1|          1.5|
+| Type | Definition|
+|:------------|:-----------|
+| Agreement   | Degree to which rating or scores are identical. |
+| Repeatability| Consistently measuring the same variable over time. |
+| Internal Consistency| Individual items jointly assessing same latent construct.|
+| Validity| Measuring what one intends to measure. |
 
 # Literature Review
 
