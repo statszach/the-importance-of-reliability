@@ -33,12 +33,18 @@ reliability_test <- function(obs, r){
   df$D <- df$X_Ordinal - df$Y_Ordinal
   
   df_results <- df %>% count(D)
+
+  reliability_absolute_results <- df_results %>% filter(D == 0) 
+  reliability_absolute_results
   
-  reliability_true_results <- df_results %>% filter(between(D, -1, 1)) 
-  reliability_true_results
+  reliability_absolute <- sum(reliability_absolute_results$n)/obs
+  reliability_absolute
+    
+  reliability_approx_results <- df_results %>% filter(between(D, -1, 1)) 
+  reliability_approx_results
   
-  reliability_true <- sum(reliability_true_results$n)/obs
-  reliability_true
+  reliability_approx <- sum(reliability_approx_results$n)/obs
+  reliability_approx
   
   reliability_nottrue_results <- df_results %>% filter(!between(D, -1, 1))
   reliability_nottrue_results
@@ -47,16 +53,16 @@ reliability_test <- function(obs, r){
   
   # Wanted to print the table of results so we could see it easily, can take out or replace with
   # a histogram for data visualization.
-  diff_results <- c(reliability_true,reliability_nottrue)
+  diff_results <- c(reliability_absolute,reliability_approx,reliability_nottrue)
   #print(diff_results)
-  
-  
-  sprintf("proportion of true responses is: %g; proportion of non-true responses is: %g", reliability_true, reliability_nottrue)
+
   print(diff_results)
   }
 
-reliability_test(20000, .8)
-reliability_test(20000, .7)
+reliability_test(200000, .9)
+reliability_test(200000, .8)
+reliability_test(200000, .7)
+reliability_test(200000, .6)
 
 iterate <- map(seq_len(1000), ~reliability_test(20000, .8))
 #This line runs the reliability_test function for nobs = 20000 and reliability = .8 for 1000 iterations
