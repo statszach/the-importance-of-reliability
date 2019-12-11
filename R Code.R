@@ -59,10 +59,30 @@ reliability_test <- function(obs, r){
   print(diff_results)
   }
 
+reliability_test(200000, .95)
 reliability_test(200000, .9)
 reliability_test(200000, .8)
 reliability_test(200000, .7)
 reliability_test(200000, .6)
+reliability_test(200000, .5)
+reliability_test(200000, .4)
+reliability_test(200000, .3)
+reliability_test(200000, .2)
+reliability_test(200000, .1)
+
+
+reliability_test(200, .95)
+reliability_test(200, .9)
+reliability_test(200, .8)
+reliability_test(200, .7)
+reliability_test(200, .6)
+reliability_test(200, .5)
+reliability_test(200, .4)
+reliability_test(200, .3)
+reliability_test(200, .2)
+reliability_test(200, .1)
+
+
 
 iterate <- map(seq_len(1000), ~reliability_test(20000, .8))
 #This line runs the reliability_test function for nobs = 20000 and reliability = .8 for 1000 iterations
