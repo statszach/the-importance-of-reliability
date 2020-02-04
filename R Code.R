@@ -59,6 +59,7 @@ reliability_test <- function(obs, r){
   print(diff_results)
   }
 
+reliability_test(200000, .97)
 reliability_test(200000, .95)
 reliability_test(200000, .9)
 reliability_test(200000, .8)
