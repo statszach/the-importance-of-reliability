@@ -1,5 +1,11 @@
 # 1. Generate theta
 
+library(tidyverse)
+library(faux)
+library(psych)
+library(lavaan)
+library(mirt)
+
 theta <- rnorm(200000, 0, 1)
 
 # 2. Generate structural validity adjusted-theta
@@ -38,33 +44,16 @@ simulate_intconsis <- function(nitems, sva, lambda){
 
 
 test1 <- simulate_intconsis(10, .8, .5)
+
+#This code converts the data into 5-point likert-type data
+
 prob_5cat   <- c(.1, .2, .4, .2, .1)
+test2 <- test1 %>% transmute_all(~norm2likert(., prob = prob_5cat))
 
+#This code dichotimizes the data
 
-test2 <- mutate_all(test1, norm2likert(~., prob = prob_5cat))
+test3 <- test1 %>% transmute_all(~dplyr::if_else(. >= 0, 1, 0))
 
+alpha(test2)
 
-# 4. Combine into data frame
-
-iterate.df <- data.frame(matrix(unlist(iterate), nrow=length(iterate), byrow = T))
-
-
-sva.8_ustar.5 <- as.data.frame(cbind(Ustar1, Ustar2, Ustar3))
-
-
-
-# 5. Chunk into 5-point likert
-
-
-
-five_cat         <- sva.8_ustar.5 %>% mutate(V1 = norm2likert(Ustar1, prob = prob_5cat),
-                                             V2 = norm2likert(Ustar2, prob = prob_5cat),
-                                             V3 = norm2likert(Ustar3, prob = prob_5cat))
-
-five_cat_chunk <- five_cat %>% select(V1, V2, V3)
-
-alpha(five_cat_chunk)
-
-omega(five_cat_chunk)
-
-library(lavaan)
+omega(test2, plot = F, maxit = 10000)
