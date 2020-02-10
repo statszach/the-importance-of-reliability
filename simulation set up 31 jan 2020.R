@@ -54,6 +54,6 @@ test2 <- test1 %>% transmute_all(~norm2likert(., prob = prob_5cat))
 
 test3 <- test1 %>% transmute_all(~dplyr::if_else(. > 0, 1, 0))
 
-alpha(test2)
-
 omega(test2, plot = F, maxit = 10000)
+
+omega(test3, plot = F, maxit = 10000)
