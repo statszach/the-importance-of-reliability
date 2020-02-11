@@ -53,10 +53,11 @@ reliability_test <- function(obs, r){
   
   # Wanted to print the table of results so we could see it easily, can take out or replace with
   # a histogram for data visualization.
-  diff_results <- c(reliability_absolute,reliability_approx,reliability_nottrue)
+  diff_results <- c("absolute reliability" = reliability_absolute, "approximate reliability" = reliability_approx,
+                    "loose reliability" = reliability_nottrue)
   #print(diff_results)
 
-  print(diff_results)
+  return(diff_results)
   }
 
 reliability_test(200000, .97)
