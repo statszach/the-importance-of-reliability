@@ -1,0 +1,164 @@
+#Instead of import data, this script holds the code used to write the functions used in the simulation.
+
+repeatability_agreement_likertnorm <- function(r){
+  obs = 200000
+  data = MASS::mvrnorm(n=obs, mu=c(0, 0), Sigma=matrix(c(1, r, r, 1), nrow=2), empirical=TRUE)
+  X = data[, 1]  # standard normal (mu=0, sd=1)
+  Y = data[, 2]  # standard normal (mu=0, sd=1)
+  
+  df <- cbind(X, Y)
+  
+  df <- as_tibble(df)
+  
+  prob = c(.1, .2, .4, .2, .1)
+  
+  df <- df %>% mutate(X_Ordinal = norm2likert(X, prob = prob),
+                      Y_Ordinal = norm2likert(Y, prob = prob))
+  
+  df$D <- df$X_Ordinal - df$Y_Ordinal
+  
+  df_results <- df %>% count(D)
+  
+  reliability_absolute_results <- df_results %>% filter(D == 0) 
+  reliability_absolute_results
+  
+  reliability_absolute <- sum(reliability_absolute_results$n)/obs
+  reliability_absolute
+  
+  reliability_approx_results <- df_results %>% filter(between(D, -1, 1)) 
+  reliability_approx_results
+  
+  reliability_approx <- sum(reliability_approx_results$n)/obs
+  reliability_approx
+  
+  reliability_nottrue_results <- df_results %>% filter(!between(D, -1, 1))
+  reliability_nottrue_results
+  
+  reliability_nottrue <- sum(reliability_nottrue_results$n)/obs
+  
+  diff_results <- c("absolute reliability" = reliability_absolute, "approximate reliability" = reliability_approx,
+                    "loose reliability" = reliability_nottrue)
+
+  return(diff_results)
+}
+
+
+# INTERNAL CONSISTENCY FUNCTIONS
+
+
+simulate_intconsis_likertnorm <- function(nitems, sva, lambda){
+  theta <- rnorm(200000, 0, 1)
+  
+  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
+  
+  iterate <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  bind_rows(iterate)
+  
+  iterate <- as.data.frame(iterate)
+  
+  prob_5cat <- c(.1, .2, .4, .2, .1)
+  
+  test1 <- iterate %>% transmute_all(~norm2likert(., prob = prob_5cat))
+  
+  omegatest <- omega(test1, plot = F, maxit = 10000, fm = "wls")
+  
+  result <- c("omega" = omegatest$omega.tot, "alpha" = omegatest$alpha)
+  
+  return(result)
+}
+
+
+simulate_intconsis_likertskew <- function(nitems, sva, lambda){
+  theta <- rnorm(200000, 0, 1)
+  
+  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
+  
+  iterate <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  bind_rows(iterate)
+  
+  iterate <- as.data.frame(iterate)
+  
+  prob_5cat <- c(.4, .25, .18, .13, .04)
+  
+  test1 <- iterate %>% transmute_all(~norm2likert(., prob = prob_5cat))
+  
+  omegatest <- omega(test1, plot = F, maxit = 10000, fm = "wls")
+  
+  result <- c("omega" = omegatest$omega.tot, "alpha" = omegatest$alpha)
+  
+  return(result)
+}
+
+
+simulate_intconsis_dichot5050 <- function(nitems, sva, lambda){
+  theta <- rnorm(200000, 0, 1)
+  
+  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
+  
+  iterate <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  bind_rows(iterate)
+  
+  iterate <- as.data.frame(iterate)
+  
+  test1 <- iterate %>% transmute_all(~dplyr::if_else(. > 0, 1, 0))
+  
+  omegatest <- omega(test1, plot = F, maxit = 10000, fm = "wls")
+  
+  result <- c("omega" = omegatest$omega.tot, "alpha" = omegatest$alpha)
+  
+  return(result)
+}
+
+
+simulate_intconsis_dichot8020 <- function(nitems, sva, lambda){
+  theta <- rnorm(200000, 0, 1)
+  
+  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
+  
+  iterate <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  bind_rows(iterate)
+  
+  iterate <- as.data.frame(iterate)
+  
+  test1 <- iterate %>% transmute_all(~dplyr::if_else(. > -.84, 1, 0))
+  
+  omegatest <- omega(test1, plot = F, maxit = 10000, fm = "wls")
+  
+  result <- c("omega" = omegatest$omega.tot, "alpha" = omegatest$alpha)
+  
+  return(result)
+}
+
+#The functions below calculate agreement based on the internal consistency simulation.
+
+simulate_agreement_likertnorm <- function(nitems, sva, lambda){
+  theta <- rnorm(200000, 0, 1)
+  
+  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
+  
+  iterate1 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  bind_rows(iterate1)
+  
+  iterate1 <- as.data.frame(iterate1)
+  
+  prob_5cat <- c(.1, .2, .4, .2, .1)
+  
+  test1 <- iterate1 %>% transmute_all(~norm2likert(., prob = prob_5cat))
+  
+  sum1 <- test1 %>% transmute(sum1 = rowSums(.))
+  
+  iterate2 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  bind_rows(iterate2)
+  
+  iterate2 <- as.data.frame(iterate2)
+  
+  test2 <- iterate2 %>% transmute_all(~norm2likert(., prob = prob_5cat))
+  
+  sum2 <- test2 %>% transmute(sum2 = rowSums(.))
+  
+  d_data <- cbind.data.frame(sum1, sum2)
+  
+  discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
+  
+  
+}
