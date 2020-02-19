@@ -1,5 +1,7 @@
 #Instead of import data, this script holds the code used to write the functions used in the simulation.
 
+#REPEATABILITY SIMULATION FUNCTIONS
+
 repeatability_agreement_likertnorm <- function(r){
   obs = 200000
   data = MASS::mvrnorm(n=obs, mu=c(0, 0), Sigma=matrix(c(1, r, r, 1), nrow=2), empirical=TRUE)
@@ -163,7 +165,7 @@ repeatability_agreement_dichot8020 <- function(r){
 }
 
 
-# INTERNAL CONSISTENCY FUNCTIONS
+# INTERNAL CONSISTENCY SIMULATION FUNCTIONS
 
 
 simulate_intconsis_likertnorm <- function(nitems, sva, lambda){
