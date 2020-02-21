@@ -27,7 +27,7 @@ repeatability_agreement_likertnorm <- function(r){
   reliability_absolute <- sum(reliability_absolute_results$n)/obs
   reliability_absolute
   
-  reliability_approx_results <- df_results %>% filter(between(D, -1, 1)) 
+  reliability_approx_results <- df_results %>% filter(D == -1 | D == 1) 
   reliability_approx_results
   
   reliability_approx <- sum(reliability_approx_results$n)/obs
@@ -69,7 +69,7 @@ repeatability_agreement_likertskew <- function(r){
   reliability_absolute <- sum(reliability_absolute_results$n)/obs
   reliability_absolute
   
-  reliability_approx_results <- df_results %>% filter(between(D, -1, 1)) 
+  reliability_approx_results <- df_results %>% filter(D == -1 | D == 1) 
   reliability_approx_results
   
   reliability_approx <- sum(reliability_approx_results$n)/obs
@@ -108,7 +108,7 @@ repeatability_agreement_dichot5050 <- function(r){
   reliability_absolute <- sum(reliability_absolute_results$n)/obs
   reliability_absolute
   
-  reliability_approx_results <- df_results %>% filter(between(D, -1, 1)) 
+  reliability_approx_results <- df_results %>% filter(D == -1 | D == 1) 
   reliability_approx_results
   
   reliability_approx <- sum(reliability_approx_results$n)/obs
@@ -147,7 +147,7 @@ repeatability_agreement_dichot8020 <- function(r){
   reliability_absolute <- sum(reliability_absolute_results$n)/obs
   reliability_absolute
   
-  reliability_approx_results <- df_results %>% filter(between(D, -1, 1)) 
+  reliability_approx_results <- df_results %>% filter(D == -1 | D == 1) 
   reliability_approx_results
   
   reliability_approx <- sum(reliability_approx_results$n)/obs
