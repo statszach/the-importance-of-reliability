@@ -288,15 +288,15 @@ simulate_agreement_likertnorm_5item <- function(sva, lambda){
   
   discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
   
-  reliability_absolute_results <- discrepancy_data %>% filter(d <= 1.8)
+  reliability_absolute_results <- discrepancy_data %>% filter(d < 2)
   reliability_absolute <- length(reliability_absolute_results$d)/obs
   reliability_absolute
   
-  reliability_approx_results <- discrepancy_data %>% filter(between(d, 2, 4)) 
+  reliability_approx_results <- discrepancy_data %>% filter(d < 4 & d >= 2) 
   reliability_approx <- length(reliability_approx_results$d)/obs
   reliability_approx
   
-  reliability_nottrue_results <- discrepancy_data %>% filter(d > 4)
+  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 4)
   reliability_nottrue <- length(reliability_nottrue_results$d)/obs
   reliability_nottrue
   
@@ -340,15 +340,15 @@ simulate_agreement_likertskew_5item <- function(sva, lambda){
   
   discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
   
-  reliability_absolute_results <- discrepancy_data %>% filter(d <= 1.8)
+  reliability_absolute_results <- discrepancy_data %>% filter(d < 2)
   reliability_absolute <- length(reliability_absolute_results$d)/obs
   reliability_absolute
   
-  reliability_approx_results <- discrepancy_data %>% filter(between(d, 2, 4)) 
+  reliability_approx_results <- discrepancy_data %>% filter(d < 4 & d >= 2) 
   reliability_approx <- length(reliability_approx_results$d)/obs
   reliability_approx
   
-  reliability_nottrue_results <- discrepancy_data %>% filter(d > 4)
+  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 4)
   reliability_nottrue <- length(reliability_nottrue_results$d)/obs
   reliability_nottrue
   
@@ -390,15 +390,15 @@ simulate_agreement_dichot5050_5item <- function(sva, lambda){
   
   discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
   
-  reliability_absolute_results <- discrepancy_data %>% filter(d <= 0.45)
+  reliability_absolute_results <- discrepancy_data %>% filter(d < 0.5)
   reliability_absolute <- length(reliability_absolute_results$d)/obs
   reliability_absolute
   
-  reliability_approx_results <- discrepancy_data %>% filter(between(d, 0.45, 1)) 
+  reliability_approx_results <- discrepancy_data %>% filter(d >= .5 & d < 1) 
   reliability_approx <- length(reliability_approx_results$d)/obs
   reliability_approx
   
-  reliability_nottrue_results <- discrepancy_data %>% filter(d > 1)
+  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 1)
   reliability_nottrue <- length(reliability_nottrue_results$d)/obs
   reliability_nottrue  
   
@@ -439,15 +439,15 @@ simulate_agreement_dichot8020_5item <- function(sva, lambda){
   
   discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
   
-  reliability_absolute_results <- discrepancy_data %>% filter(d <= 0.45)
+  reliability_absolute_results <- discrepancy_data %>% filter(d < 0.5)
   reliability_absolute <- length(reliability_absolute_results$d)/obs
   reliability_absolute
   
-  reliability_approx_results <- discrepancy_data %>% filter(between(d, 0.45, 1)) 
+  reliability_approx_results <- discrepancy_data %>% filter(d >= .5 & d < 1) 
   reliability_approx <- length(reliability_approx_results$d)/obs
   reliability_approx
   
-  reliability_nottrue_results <- discrepancy_data %>% filter(d > 1)
+  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 1)
   reliability_nottrue <- length(reliability_nottrue_results$d)/obs
   reliability_nottrue  
   
@@ -493,15 +493,15 @@ simulate_agreement_likertnorm_10item <- function(sva, lambda){
   
   discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
   
-  reliability_absolute_results <- discrepancy_data %>% filter(d <= 3.6)
+  reliability_absolute_results <- discrepancy_data %>% filter(d < 4)
   reliability_absolute <- length(reliability_absolute_results$d)/obs
   reliability_absolute
   
-  reliability_approx_results <- discrepancy_data %>% filter(between(d, 4, 8)) 
+  reliability_approx_results <- discrepancy_data %>% filter(d >= 4 & d < 8) 
   reliability_approx <- length(reliability_approx_results$d)/obs
   reliability_approx
   
-  reliability_nottrue_results <- discrepancy_data %>% filter(d > 8)
+  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 8)
   reliability_nottrue <- length(reliability_nottrue_results$d)/obs
   reliability_nottrue
   
@@ -545,15 +545,15 @@ simulate_agreement_likertskew_10item <- function(sva, lambda){
   
   discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
   
-  reliability_absolute_results <- discrepancy_data %>% filter(d <= 3.6)
+  reliability_absolute_results <- discrepancy_data %>% filter(d < 4)
   reliability_absolute <- length(reliability_absolute_results$d)/obs
   reliability_absolute
   
-  reliability_approx_results <- discrepancy_data %>% filter(between(d, 4, 8)) 
+  reliability_approx_results <- discrepancy_data %>% filter(d >= 4 & d < 8) 
   reliability_approx <- length(reliability_approx_results$d)/obs
   reliability_approx
   
-  reliability_nottrue_results <- discrepancy_data %>% filter(d > 8)
+  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 8)
   reliability_nottrue <- length(reliability_nottrue_results$d)/obs
   reliability_nottrue
   
@@ -595,15 +595,15 @@ simulate_agreement_dichot5050_10item <- function(sva, lambda){
   
   discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
   
-  reliability_absolute_results <- discrepancy_data %>% filter(d <= 0.9)
+  reliability_absolute_results <- discrepancy_data %>% filter(d < 1)
   reliability_absolute <- length(reliability_absolute_results$d)/obs
   reliability_absolute
   
-  reliability_approx_results <- discrepancy_data %>% filter(between(d, 1, 2)) 
+  reliability_approx_results <- discrepancy_data %>% filter(d < 2 & d >= 1) 
   reliability_approx <- length(reliability_approx_results$d)/obs
   reliability_approx
   
-  reliability_nottrue_results <- discrepancy_data %>% filter(d > 2)
+  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 2)
   reliability_nottrue <- length(reliability_nottrue_results$d)/obs
   reliability_nottrue
   
@@ -645,17 +645,17 @@ simulate_agreement_dichot8020_10item <- function(sva, lambda){
   
   discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
   
-  reliability_absolute_results <- discrepancy_data %>% filter(d <= 0.9)
+  reliability_absolute_results <- discrepancy_data %>% filter(d < 1)
   reliability_absolute <- length(reliability_absolute_results$d)/obs
   reliability_absolute
   
-  reliability_approx_results <- discrepancy_data %>% filter(between(d, 1, 2)) 
+  reliability_approx_results <- discrepancy_data %>% filter(d < 2 & d >= 1) 
   reliability_approx <- length(reliability_approx_results$d)/obs
   reliability_approx
   
-  reliability_nottrue_results <- discrepancy_data %>% filter(d > 2)
+  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 2)
   reliability_nottrue <- length(reliability_nottrue_results$d)/obs
-  reliability_nottrue  
+  reliability_nottrue 
   
   diff_results <- c("absolute agreement" = reliability_absolute, "approximate agreement" = reliability_approx,
                     "loose agreement" = reliability_nottrue)
@@ -698,15 +698,15 @@ simulate_agreement_likertnorm_15item <- function(sva, lambda){
   
   discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
   
-  reliability_absolute_results <- discrepancy_data %>% filter(d <= 5.4)
+  reliability_absolute_results <- discrepancy_data %>% filter(d < 6)
   reliability_absolute <- length(reliability_absolute_results$d)/obs
   reliability_absolute
   
-  reliability_approx_results <- discrepancy_data %>% filter(between(d, 6, 12)) 
+  reliability_approx_results <- discrepancy_data %>% filter(d >= 6 & d < 12) 
   reliability_approx <- length(reliability_approx_results$d)/obs
   reliability_approx
   
-  reliability_nottrue_results <- discrepancy_data %>% filter(d > 12)
+  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 12)
   reliability_nottrue <- length(reliability_nottrue_results$d)/obs
   reliability_nottrue
   
@@ -750,15 +750,15 @@ simulate_agreement_likertskew_15item <- function(sva, lambda){
   
   discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
   
-  reliability_absolute_results <- discrepancy_data %>% filter(d <= 5.4)
+  reliability_absolute_results <- discrepancy_data %>% filter(d < 6)
   reliability_absolute <- length(reliability_absolute_results$d)/obs
   reliability_absolute
   
-  reliability_approx_results <- discrepancy_data %>% filter(between(d, 6, 12)) 
+  reliability_approx_results <- discrepancy_data %>% filter(d >= 6 & d < 12) 
   reliability_approx <- length(reliability_approx_results$d)/obs
   reliability_approx
   
-  reliability_nottrue_results <- discrepancy_data %>% filter(d > 12)
+  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 12)
   reliability_nottrue <- length(reliability_nottrue_results$d)/obs
   reliability_nottrue
   
@@ -799,15 +799,15 @@ simulate_agreement_dichot5050_15item <- function(sva, lambda){
   
   discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
   
-  reliability_absolute_results <- discrepancy_data %>% filter(d <= 1.35)
+  reliability_absolute_results <- discrepancy_data %>% filter(d < 1.5)
   reliability_absolute <- length(reliability_absolute_results$d)/obs
   reliability_absolute
   
-  reliability_approx_results <- discrepancy_data %>% filter(between(d, 1.4, 3)) 
+  reliability_approx_results <- discrepancy_data %>% filter(d >= 1.5 & d < 3) 
   reliability_approx <- length(reliability_approx_results$d)/obs
   reliability_approx
   
-  reliability_nottrue_results <- discrepancy_data %>% filter(d > 3)
+  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 3)
   reliability_nottrue <- length(reliability_nottrue_results$d)/obs
   reliability_nottrue
   
@@ -849,15 +849,15 @@ simulate_agreement_dichot8020_15item <- function(sva, lambda){
   
   discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
   
-  reliability_absolute_results <- discrepancy_data %>% filter(d <= 1.35)
+  reliability_absolute_results <- discrepancy_data %>% filter(d < 1.5)
   reliability_absolute <- length(reliability_absolute_results$d)/obs
   reliability_absolute
   
-  reliability_approx_results <- discrepancy_data %>% filter(between(d, 1.4, 3)) 
+  reliability_approx_results <- discrepancy_data %>% filter(d >= 1.5 & d < 3) 
   reliability_approx <- length(reliability_approx_results$d)/obs
   reliability_approx
   
-  reliability_nottrue_results <- discrepancy_data %>% filter(d > 3)
+  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 3)
   reliability_nottrue <- length(reliability_nottrue_results$d)/obs
   reliability_nottrue
   
@@ -902,15 +902,15 @@ simulate_agreement_likertnorm_20item <- function(sva, lambda){
   
   discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
   
-  reliability_absolute_results <- discrepancy_data %>% filter(d <= 7.2)
+  reliability_absolute_results <- discrepancy_data %>% filter(d < 8)
   reliability_absolute <- length(reliability_absolute_results$d)/obs
   reliability_absolute
   
-  reliability_approx_results <- discrepancy_data %>% filter(between(d, 8, 16)) 
+  reliability_approx_results <- discrepancy_data %>% filter(d >= 8 & d < 16) 
   reliability_approx <- length(reliability_approx_results$d)/obs
   reliability_approx
   
-  reliability_nottrue_results <- discrepancy_data %>% filter(d > 16)
+  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 16)
   reliability_nottrue <- length(reliability_nottrue_results$d)/obs
   reliability_nottrue
   
@@ -954,15 +954,15 @@ simulate_agreement_likertskew_20item <- function(sva, lambda){
   
   discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
   
-  reliability_absolute_results <- discrepancy_data %>% filter(d <= 7.2)
+  reliability_absolute_results <- discrepancy_data %>% filter(d < 8)
   reliability_absolute <- length(reliability_absolute_results$d)/obs
   reliability_absolute
   
-  reliability_approx_results <- discrepancy_data %>% filter(between(d, 8, 16)) 
+  reliability_approx_results <- discrepancy_data %>% filter(d >= 8 & d < 16) 
   reliability_approx <- length(reliability_approx_results$d)/obs
   reliability_approx
   
-  reliability_nottrue_results <- discrepancy_data %>% filter(d > 16)
+  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 16)
   reliability_nottrue <- length(reliability_nottrue_results$d)/obs
   reliability_nottrue
   
@@ -1003,15 +1003,15 @@ simulate_agreement_dichot5050_20item <- function(sva, lambda){
   
   discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
   
-  reliability_absolute_results <- discrepancy_data %>% filter(d <= 1.8)
+  reliability_absolute_results <- discrepancy_data %>% filter(d < 2)
   reliability_absolute <- length(reliability_absolute_results$d)/obs
   reliability_absolute
   
-  reliability_approx_results <- discrepancy_data %>% filter(between(d, 2, 4)) 
+  reliability_approx_results <- discrepancy_data %>% filter(d >= 2 & d < 4) 
   reliability_approx <- length(reliability_approx_results$d)/obs
   reliability_approx
   
-  reliability_nottrue_results <- discrepancy_data %>% filter(d > 4)
+  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 4)
   reliability_nottrue <- length(reliability_nottrue_results$d)/obs
   reliability_nottrue
   
@@ -1053,15 +1053,15 @@ simulate_agreement_dichot8020_20item <- function(sva, lambda){
   
   discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
   
-  reliability_absolute_results <- discrepancy_data %>% filter(d <= 1.8)
+  reliability_absolute_results <- discrepancy_data %>% filter(d < 2)
   reliability_absolute <- length(reliability_absolute_results$d)/obs
   reliability_absolute
   
-  reliability_approx_results <- discrepancy_data %>% filter(between(d, 2, 4)) 
+  reliability_approx_results <- discrepancy_data %>% filter(d >= 2 & d < 4) 
   reliability_approx <- length(reliability_approx_results$d)/obs
   reliability_approx
   
-  reliability_nottrue_results <- discrepancy_data %>% filter(d > 4)
+  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 4)
   reliability_nottrue <- length(reliability_nottrue_results$d)/obs
   reliability_nottrue
   
@@ -1106,15 +1106,15 @@ simulate_agreement_likertnorm_25item <- function(sva, lambda){
   
   discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
   
-  reliability_absolute_results <- discrepancy_data %>% filter(d <= 9)
+  reliability_absolute_results <- discrepancy_data %>% filter(d < 10)
   reliability_absolute <- length(reliability_absolute_results$d)/obs
   reliability_absolute
   
-  reliability_approx_results <- discrepancy_data %>% filter(between(d, 10, 20)) 
+  reliability_approx_results <- discrepancy_data %>% filter(d >= 10 & d < 20) 
   reliability_approx <- length(reliability_approx_results$d)/obs
   reliability_approx
   
-  reliability_nottrue_results <- discrepancy_data %>% filter(d > 20)
+  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 20)
   reliability_nottrue <- length(reliability_nottrue_results$d)/obs
   reliability_nottrue
   
@@ -1158,15 +1158,15 @@ simulate_agreement_likertskew_25item <- function(sva, lambda){
   
   discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
   
-  reliability_absolute_results <- discrepancy_data %>% filter(d <= 9)
+  reliability_absolute_results <- discrepancy_data %>% filter(d < 10)
   reliability_absolute <- length(reliability_absolute_results$d)/obs
   reliability_absolute
   
-  reliability_approx_results <- discrepancy_data %>% filter(between(d, 10, 20)) 
+  reliability_approx_results <- discrepancy_data %>% filter(d >= 10 & d < 20) 
   reliability_approx <- length(reliability_approx_results$d)/obs
   reliability_approx
   
-  reliability_nottrue_results <- discrepancy_data %>% filter(d > 20)
+  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 20)
   reliability_nottrue <- length(reliability_nottrue_results$d)/obs
   reliability_nottrue
   
@@ -1207,15 +1207,15 @@ simulate_agreement_dichot5050_25item <- function(sva, lambda){
   
   discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
   
-  reliability_absolute_results <- discrepancy_data %>% filter(d <= 2.25)
+  reliability_absolute_results <- discrepancy_data %>% filter(d < 2.5)
   reliability_absolute <- length(reliability_absolute_results$d)/obs
   reliability_absolute
   
-  reliability_approx_results <- discrepancy_data %>% filter(between(d, 2.5, 5)) 
+  reliability_approx_results <- discrepancy_data %>% filter(d >= 2.5 & d < 5) 
   reliability_approx <- length(reliability_approx_results$d)/obs
   reliability_approx
   
-  reliability_nottrue_results <- discrepancy_data %>% filter(d > 5)
+  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 5)
   reliability_nottrue <- length(reliability_nottrue_results$d)/obs
   reliability_nottrue
   
@@ -1257,15 +1257,15 @@ simulate_agreement_dichot8020_25item <- function(sva, lambda){
   
   discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
   
-  reliability_absolute_results <- discrepancy_data %>% filter(d <= 2.25)
+  reliability_absolute_results <- discrepancy_data %>% filter(d < 2.5)
   reliability_absolute <- length(reliability_absolute_results$d)/obs
   reliability_absolute
   
-  reliability_approx_results <- discrepancy_data %>% filter(between(d, 2.5, 5)) 
+  reliability_approx_results <- discrepancy_data %>% filter(d >= 2.5 & d < 5) 
   reliability_approx <- length(reliability_approx_results$d)/obs
   reliability_approx
   
-  reliability_nottrue_results <- discrepancy_data %>% filter(d > 5)
+  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 5)
   reliability_nottrue <- length(reliability_nottrue_results$d)/obs
   reliability_nottrue
   
