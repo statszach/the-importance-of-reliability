@@ -7,3 +7,7 @@ library(psych)
 library(lavaan)
 library(mirt)
 library(Hmisc)
+library(gtsummary)
+
+#Run below just once
+#remotes::install_github("rstudio/gt", ref = gtsummary::gt_sha)

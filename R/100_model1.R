@@ -63,51 +63,51 @@ repeatability_agreement_likertskew(.9)
 repeatability_agreement_dichot5050(.5)
 
 # absolute agreement approximate agreement       loose agreement 
-# 0.66669               0.33331               0.00000 
+# 0.66674               0.33326               0.00000 
 
 repeatability_agreement_dichot5050(.6)
 
 # absolute agreement approximate agreement       loose agreement 
-# 0.70488               0.29512               0.00000 
+# 0.704465              0.295535              0.000000 
 
 repeatability_agreement_dichot5050(.7)
 
 # absolute agreement approximate agreement       loose agreement 
-# 0.74745               0.25255               0.00000
+# 0.746375              0.253625              0.000000
 
 repeatability_agreement_dichot5050(.8)
 
 # absolute agreement approximate agreement       loose agreement 
-# 0.79503               0.20497               0.00000 
+# 0.793885              0.206115              0.000000 
 
 repeatability_agreement_dichot5050(.9)
 
 # absolute agreement approximate agreement       loose agreement 
-# 0.857225              0.142775              0.000000 
+# 0.857275              0.142725              0.000000 
 
 #8020 Dichot Simulation:
 
 repeatability_agreement_dichot8020(.5)
 
 # absolute agreement approximate agreement       loose agreement 
-# 0.773595              0.226405              0.000000 
+# 0.66807               0.33193               0.00000 
 
 repeatability_agreement_dichot8020(.6)
 
 # absolute agreement approximate agreement       loose agreement 
-# 0.799125              0.200875              0.000000 
+# 0.70301               0.29699               0.00000 
 
 repeatability_agreement_dichot8020(.7)
 
 # absolute agreement approximate agreement       loose agreement 
-# 0.82606               0.17394               0.00000 
+# 0.82588               0.17412               0.00000 
 
 repeatability_agreement_dichot8020(.8)
 
 # absolute agreement approximate agreement       loose agreement 
-# 0.85736               0.14264               0.00000 
+# 0.85791               0.14209               0.00000 
 
 repeatability_agreement_dichot8020(.9)
 
 # absolute agreement approximate agreement       loose agreement 
-# 0.900055              0.099945              0.000000 
+# 0.89984               0.10016               0.00000

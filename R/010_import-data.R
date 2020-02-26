@@ -865,7 +865,7 @@ simulate_agreement_dichot8020_15item <- function(sva, lambda){
                     "loose agreement" = reliability_nottrue)
   return(diff_results)
   
-}
+}=
 
 # 20 items
 
@@ -1116,7 +1116,7 @@ simulate_agreement_likertnorm_25item <- function(sva, lambda){
   
   reliability_nottrue_results <- discrepancy_data %>% filter(d >= 20)
   reliability_nottrue <- length(reliability_nottrue_results$d)/obs
-  reliability_nottrue
+  reliability_nottrue=
   
   
   diff_results <- c("absolute agreement" = reliability_absolute, "approximate agreement" = reliability_approx,
