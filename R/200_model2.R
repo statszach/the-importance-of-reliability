@@ -62,4 +62,9 @@ i25s9_ln <- i25s9_ln %>% mutate(condition = c("i25s9l9_ln", "i25s9l8_ln", "i25s9
 
 s9_ln <- rbind(i5s9_ln, i10s9_ln, i15s9_ln, i20s9_ln, i25s9_ln)
 
-test_tbl <- tbl_summary(s9_ln, by = condition, statistic = all_continuous() ~ "{mean}")
+library(reshape2)
+
+data_wide <- dcast(s9_ln, nitems ~ condition, value.var="omega")
+data_wide
+
+test_tbl <- data_wide %>% tbl_summary(by = nitems, statistic = all_continuous() ~ "{mean}", missing = "no")
