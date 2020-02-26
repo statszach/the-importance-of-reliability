@@ -68,3 +68,5 @@ data_wide <- dcast(s9_ln, nitems ~ condition, value.var="omega")
 data_wide
 
 test_tbl <- data_wide %>% tbl_summary(by = nitems, statistic = all_continuous() ~ "{mean}", missing = "no")
+
+#next -- make condition variable just s9lX_ln
