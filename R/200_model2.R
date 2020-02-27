@@ -716,7 +716,20 @@ s9_d82 <- rbind(i5s9_d82, i10s9_d82, i15s9_d82, i20s9_d82, i25s9_d82)
 s8_d82 <- rbind(i5s8_d82, i10s8_d82, i15s8_d82, i20s8_d82, i25s8_d82)
 s7_d82 <- rbind(i5s7_d82, i10s7_d82, i15s7_d82, i20s7_d82, i25s7_d82)
 
+internalconsistency_simulation_results <- rbind(s9_ln ,
+                                                s8_ln ,
+                                                s7_ln ,
+                                                s9_ls ,
+                                                s8_ls ,
+                                                s7_ls ,
+                                                s9_d55,
+                                                s8_d55,
+                                                s7_d55,
+                                                s9_d82,
+                                                s8_d82,
+                                                s7_d82)
 
+saveRDS(internalconsistency_simulation_results, file = "IC_results.RData")
 
 s9_ln_wide_omega <- dcast(s9_ln, nitems ~ condition, value.var="omega")
 s9_ln_wide_omega

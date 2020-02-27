@@ -31,7 +31,7 @@ r9_ln <- repeatability_agreement_likertnorm(.9)
 # absolute agreement approximate agreement       loose agreement 
 # 0.635930              0.353925              0.010145 
 
-r_ln <- rbind(r5_ln, r6_ln, r7_ln, r8_ln, r9_ln)
+r_ln <- rbind(r5_ln, r6_ln, r7_ln, r8_ln, r9_ln) %>% as_tibble() %>% mutate(condition = rep("ln", 1))
 
 # Skewed Likert Simulation:
 
@@ -60,7 +60,7 @@ r9_ls <- repeatability_agreement_likertskew(.9)
 # absolute agreement approximate agreement       loose agreement 
 # 0.63335               0.33866               0.02799 
 
-r_ls <- rbind(r5_ls, r6_ls, r7_ls, r8_ls, r9_ls)
+r_ls <- rbind(r5_ls, r6_ls, r7_ls, r8_ls, r9_ls) %>% as_tibble() %>% mutate(condition = rep("ls", 1))
 
 # 5050 Dichot Simulation:
 
@@ -89,7 +89,7 @@ r9_d55 <-repeatability_agreement_dichot5050(.9)
 # absolute agreement approximate agreement       loose agreement 
 # 0.857275              0.142725              0.000000 
 
-r_d55 <- rbind(r5_d55, r6_d55, r7_d55, r8_d55, r9_d55)
+r_d55 <- rbind(r5_d55, r6_d55, r7_d55, r8_d55, r9_d55) %>% as_tibble() %>% mutate(condition = rep("d55", 1))
 
 #8020 Dichot Simulation:
 
@@ -118,4 +118,8 @@ r9_d82 <-repeatability_agreement_dichot8020(.9)
 # absolute agreement approximate agreement       loose agreement 
 # 0.89984               0.10016               0.00000
 
-r_d82 <- rbind(r5_d82, r6_d82, r7_d82, r8_d82, r9_d82)
+r_d82 <- rbind(r5_d82, r6_d82, r7_d82, r8_d82, r9_d82) %>% as_tibble() %>% mutate(condition = rep("d82", 1))
+
+repeatability_simulation_results <- rbind(r_ln, r_ls, r_d55, r_d82)
+
+saveRDS(repeatability_simulation_results, file = "repeat_agree_results.RData")
