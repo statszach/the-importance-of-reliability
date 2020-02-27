@@ -9,5 +9,6 @@ library(mirt)
 library(Hmisc)
 library(gtsummary)
 library(reshape2)
+library(gt)
 #Run below just once
 #remotes::install_github("rstudio/gt", ref = gtsummary::gt_sha)
