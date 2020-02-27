@@ -8,6 +8,6 @@ library(lavaan)
 library(mirt)
 library(Hmisc)
 library(gtsummary)
-
+library(reshape2)
 #Run below just once
 #remotes::install_github("rstudio/gt", ref = gtsummary::gt_sha)
