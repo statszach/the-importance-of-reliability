@@ -1,4 +1,8 @@
-#Instead of import data, this script holds the code used to write the functions used in the simulation.
+#Loading results
+
+ICData <- readRDS("IC_results.RData")
+ICAgreeData <- readRDS("IC_agree_results.RData")
+RepeatData <- readRDS("repeat_agree_results.RData")
 
 #REPEATABILITY SIMULATION FUNCTIONS
 
@@ -865,7 +869,7 @@ simulate_agreement_dichot8020_15item <- function(sva, lambda){
                     "loose agreement" = reliability_nottrue)
   return(diff_results)
   
-}=
+}
 
 # 20 items
 

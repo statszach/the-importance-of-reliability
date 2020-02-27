@@ -730,10 +730,3 @@ internalconsistency_simulation_results <- rbind(s9_ln ,
                                                 s7_d82)
 
 saveRDS(internalconsistency_simulation_results, file = "IC_results.RData")
-
-s9_ln_wide_omega <- dcast(s9_ln, nitems ~ condition, value.var="omega")
-s9_ln_wide_omega
-
-test_tbl <- s9_ln_wide %>% tbl_summary(by = nitems, statistic = all_continuous() ~ "{mean}", missing = "no")
-
-#next -- make condition variable just s9lX_ln
