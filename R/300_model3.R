@@ -55,6 +55,7 @@ i5_ln_agree <- i5_ln_agree %>% mutate(condition = c("s9l9_ln",
                                                     "s7l5_ln"),
                                       nitems = rep(5, 1))
 
+
 i10s9l9_ln_agree <- simulate_agreement_likertnorm_10item(.9, .9)
 i10s9l8_ln_agree <- simulate_agreement_likertnorm_10item(.9, .8)
 i10s9l7_ln_agree <- simulate_agreement_likertnorm_10item(.9, .7)
@@ -107,57 +108,57 @@ i10_ln_agree <- i10_ln_agree %>% mutate(condition = c("s9l9_ln",
                                                     "s7l5_ln"),
                                       nitems = rep(10, 1))
 
-i15s9l9_ln_agree <- simulate_agreement_likertnorm_15item(.9, .9)
-i15s9l8_ln_agree <- simulate_agreement_likertnorm_15item(.9, .8)
-i15s9l7_ln_agree <- simulate_agreement_likertnorm_15item(.9, .7)
-i15s9l6_ln_agree <- simulate_agreement_likertnorm_15item(.9, .6)
-i15s9l5_ln_agree <- simulate_agreement_likertnorm_15item(.9, .5)
-
-i15s8l9_ln_agree <- simulate_agreement_likertnorm_15item(.8, .9)
-i15s8l8_ln_agree <- simulate_agreement_likertnorm_15item(.8, .8)
-i15s8l7_ln_agree <- simulate_agreement_likertnorm_15item(.8, .7)
-i15s8l6_ln_agree <- simulate_agreement_likertnorm_15item(.8, .6)
-i15s8l5_ln_agree <- simulate_agreement_likertnorm_15item(.8, .5)
-
-i15s7l9_ln_agree <- simulate_agreement_likertnorm_15item(.7, .9)
-i15s7l8_ln_agree <- simulate_agreement_likertnorm_15item(.7, .8)
-i15s7l7_ln_agree <- simulate_agreement_likertnorm_15item(.7, .7)
-i15s7l6_ln_agree <- simulate_agreement_likertnorm_15item(.7, .6)
-i15s7l5_ln_agree <- simulate_agreement_likertnorm_15item(.7, .5)
-
-i15_ln_agree <- rbind(i15s9l9_ln_agree,
-                      i15s9l8_ln_agree,
-                      i15s9l7_ln_agree,
-                      i15s9l6_ln_agree,
-                      i15s9l5_ln_agree,
-                      i15s8l9_ln_agree,
-                      i15s8l8_ln_agree,
-                      i15s8l7_ln_agree,
-                      i15s8l6_ln_agree,
-                      i15s8l5_ln_agree,
-                      i15s7l9_ln_agree,
-                      i15s7l8_ln_agree,
-                      i15s7l7_ln_agree,
-                      i15s7l6_ln_agree,
-                      i15s7l5_ln_agree)
-i15_ln_agree <- as.tibble(i15_ln_agree)  
-
-i15_ln_agree <- i15_ln_agree %>% mutate(condition = c("s9l9_ln",
-                                                      "s9l8_ln",
-                                                      "s9l7_ln",
-                                                      "s9l6_ln",
-                                                      "s9l5_ln",
-                                                      "s8l9_ln",
-                                                      "s8l8_ln",
-                                                      "s8l7_ln",
-                                                      "s8l6_ln",
-                                                      "s8l5_ln",
-                                                      "s7l9_ln",
-                                                      "s7l8_ln",
-                                                      "s7l7_ln",
-                                                      "s7l6_ln",
-                                                      "s7l5_ln"),
-                                        nitems = rep(15, 1))
+  i15s9l9_ln_agree <- simulate_agreement_likertnorm_15item(.9, .9)
+  i15s9l8_ln_agree <- simulate_agreement_likertnorm_15item(.9, .8)
+  i15s9l7_ln_agree <- simulate_agreement_likertnorm_15item(.9, .7)
+  i15s9l6_ln_agree <- simulate_agreement_likertnorm_15item(.9, .6)
+  i15s9l5_ln_agree <- simulate_agreement_likertnorm_15item(.9, .5)
+  
+  i15s8l9_ln_agree <- simulate_agreement_likertnorm_15item(.8, .9)
+  i15s8l8_ln_agree <- simulate_agreement_likertnorm_15item(.8, .8)
+  i15s8l7_ln_agree <- simulate_agreement_likertnorm_15item(.8, .7)
+  i15s8l6_ln_agree <- simulate_agreement_likertnorm_15item(.8, .6)
+  i15s8l5_ln_agree <- simulate_agreement_likertnorm_15item(.8, .5)
+  
+  i15s7l9_ln_agree <- simulate_agreement_likertnorm_15item(.7, .9)
+  i15s7l8_ln_agree <- simulate_agreement_likertnorm_15item(.7, .8)
+  i15s7l7_ln_agree <- simulate_agreement_likertnorm_15item(.7, .7)
+  i15s7l6_ln_agree <- simulate_agreement_likertnorm_15item(.7, .6)
+  i15s7l5_ln_agree <- simulate_agreement_likertnorm_15item(.7, .5)
+  
+  i15_ln_agree <- rbind(i15s9l9_ln_agree,
+                        i15s9l8_ln_agree,
+                        i15s9l7_ln_agree,
+                        i15s9l6_ln_agree,
+                        i15s9l5_ln_agree,
+                        i15s8l9_ln_agree,
+                        i15s8l8_ln_agree,
+                        i15s8l7_ln_agree,
+                        i15s8l6_ln_agree,
+                        i15s8l5_ln_agree,
+                        i15s7l9_ln_agree,
+                        i15s7l8_ln_agree,
+                        i15s7l7_ln_agree,
+                        i15s7l6_ln_agree,
+                        i15s7l5_ln_agree)
+  i15_ln_agree <- as.tibble(i15_ln_agree)  
+  
+  i15_ln_agree <- i15_ln_agree %>% mutate(condition = c("s9l9_ln",
+                                                        "s9l8_ln",
+                                                        "s9l7_ln",
+                                                        "s9l6_ln",
+                                                        "s9l5_ln",
+                                                        "s8l9_ln",
+                                                        "s8l8_ln",
+                                                        "s8l7_ln",
+                                                        "s8l6_ln",
+                                                        "s8l5_ln",
+                                                        "s7l9_ln",
+                                                        "s7l8_ln",
+                                                        "s7l7_ln",
+                                                        "s7l6_ln",
+                                                        "s7l5_ln"),
+                                          nitems = rep(15, 1))
 
 i20s9l9_ln_agree <- simulate_agreement_likertnorm_20item(.9, .9)
 i20s9l8_ln_agree <- simulate_agreement_likertnorm_20item(.9, .8)
@@ -1074,3 +1075,5 @@ internalconsistency_agreement_simulation_results <- rbind(i5_ln_agree,
                                                           i25_d82_agree)
 
 saveRDS(internalconsistency_agreement_simulation_results, file = "IC_agree_results.RData")
+
+ICData %>% filter(nitems == "25") %>% print(n=60)

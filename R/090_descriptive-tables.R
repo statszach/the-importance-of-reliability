@@ -7,6 +7,12 @@ RepeatData$value <- as.numeric(RepeatData$value)
 RepeatData$type <- factor(RepeatData$type, labels = c("D = 0", "D = |1|", "D > |1|"))
 
 
+## To do: check into pivot wider to help format dataframe to make the table ##
+## 
+
+RepeatDataWide <- RepeatData %>% 
+
+
 test1 <- RepeatData %>% gt(rowname_col = c("condition"),
                         groupname_col = c("type", "r")) %>% 
                         summary_rows(groups = TRUE,

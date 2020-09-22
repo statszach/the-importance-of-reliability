@@ -172,12 +172,12 @@ repeatability_agreement_dichot8020 <- function(r){
 # INTERNAL CONSISTENCY SIMULATION FUNCTIONS
 
 
-simulate_intconsis_likertnorm <- function(nitems, sva, lambda){
+simulate_intconsis_likertnorm <- function(nitems, sv, lambda){
   theta <- rnorm(200000, 0, 1)
   
-  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
+  sv_theta <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  
   
-  iterate <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  iterate <- map(1:nitems, ~sv_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate)
   
   iterate <- as.data.frame(iterate)
@@ -194,12 +194,12 @@ simulate_intconsis_likertnorm <- function(nitems, sva, lambda){
 }
 
 
-simulate_intconsis_likertskew <- function(nitems, sva, lambda){
+simulate_intconsis_likertskew <- function(nitems, sv, lambda){
   theta <- rnorm(200000, 0, 1)
   
-  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
+  sv_theta <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  
   
-  iterate <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  iterate <- map(1:nitems, ~sv_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate)
   
   iterate <- as.data.frame(iterate)
@@ -216,12 +216,12 @@ simulate_intconsis_likertskew <- function(nitems, sva, lambda){
 }
 
 
-simulate_intconsis_dichot5050 <- function(nitems, sva, lambda){
+simulate_intconsis_dichot5050 <- function(nitems, sv, lambda){
   theta <- rnorm(200000, 0, 1)
   
-  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
+  sv_theta <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  
   
-  iterate <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  iterate <- map(1:nitems, ~sv_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate)
   
   iterate <- as.data.frame(iterate)
@@ -236,12 +236,12 @@ simulate_intconsis_dichot5050 <- function(nitems, sva, lambda){
 }
 
 
-simulate_intconsis_dichot8020 <- function(nitems, sva, lambda){
+simulate_intconsis_dichot8020 <- function(nitems, sv, lambda){
   theta <- rnorm(200000, 0, 1)
   
-  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
+  sv_theta <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  
   
-  iterate <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  iterate <- map(1:nitems, ~sv_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate)
   
   iterate <- as.data.frame(iterate)
@@ -259,27 +259,28 @@ simulate_intconsis_dichot8020 <- function(nitems, sva, lambda){
 
 # 5 items
 
-simulate_agreement_likertnorm_5item <- function(sva, lambda){
+simulate_agreement_likertnorm_5item <- function(sv, lambda){
   
   nitems = 5
   obs = 200000
   
-  theta <- rnorm(200000, 0, 1)
+  theta <- rnorm(200000, 0, 1) #simulate theta
+  prob_5cat <- c(.1, .2, .4, .2, .1)
+    
+  theta_A <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  #simulate theta A
   
-  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
-  
-  iterate1 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  iterate1 <- map(1:nitems, ~theta_A * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate1)
   
   iterate1 <- as.data.frame(iterate1)
-  
-  prob_5cat <- c(.1, .2, .4, .2, .1)
   
   test1 <- iterate1 %>% transmute_all(~norm2likert(., prob = prob_5cat))
   
   sum1 <- test1 %>% transmute(sum1 = rowSums(.))
   
-  iterate2 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  theta_B <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1) #simulate theta B
+  
+  iterate2 <- map(1:nitems, ~theta_B * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate2)
   
   iterate2 <- as.data.frame(iterate2)
@@ -311,27 +312,28 @@ simulate_agreement_likertnorm_5item <- function(sva, lambda){
   
 }
 
-simulate_agreement_likertskew_5item <- function(sva, lambda){
+simulate_agreement_likertskew_5item <- function(sv, lambda){
   
   nitems = 5
   obs = 200000
   
   theta <- rnorm(200000, 0, 1)
-  
-  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
-  
-  iterate1 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
-  bind_rows(iterate1)
-  
-  iterate1 <- as.data.frame(iterate1)
-  
   prob_5cat <- c(.4, .25, .18, .13, .04)
   
+  theta_A <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  #simulate theta A
+  
+  iterate1 <- map(1:nitems, ~theta_A * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  bind_rows(iterate1)
+  
+  iterate1 <- as.data.frame(iterate1)
+  
   test1 <- iterate1 %>% transmute_all(~norm2likert(., prob = prob_5cat))
   
   sum1 <- test1 %>% transmute(sum1 = rowSums(.))
   
-  iterate2 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  theta_B <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1) #simulate theta B
+  
+  iterate2 <- map(1:nitems, ~theta_B * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate2)
   
   iterate2 <- as.data.frame(iterate2)
@@ -363,16 +365,16 @@ simulate_agreement_likertskew_5item <- function(sva, lambda){
   
 }
 
-simulate_agreement_dichot5050_5item <- function(sva, lambda){
+simulate_agreement_dichot5050_5item <- function(sv, lambda){
   
   nitems = 5
   obs = 200000
   
   theta <- rnorm(200000, 0, 1)
   
-  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
+  theta_A <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  
   
-  iterate1 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  iterate1 <- map(1:nitems, ~theta_A * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate1)
   
   iterate1 <- as.data.frame(iterate1)
@@ -381,7 +383,9 @@ simulate_agreement_dichot5050_5item <- function(sva, lambda){
   
   sum1 <- test1 %>% transmute(sum1 = rowSums(.))
   
-  iterate2 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  theta_B <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  
+  
+  iterate2 <- map(1:nitems, ~theta_B * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate2)
   
   iterate2 <- as.data.frame(iterate2)
@@ -412,16 +416,16 @@ simulate_agreement_dichot5050_5item <- function(sva, lambda){
   
 }
 
-simulate_agreement_dichot8020_5item <- function(sva, lambda){
+simulate_agreement_dichot8020_5item <- function(sv, lambda){
   
   nitems = 5
   obs = 200000
   
   theta <- rnorm(200000, 0, 1)
   
-  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
+  theta_A <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  
   
-  iterate1 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  iterate1 <- map(1:nitems, ~theta_A * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate1)
   
   iterate1 <- as.data.frame(iterate1)
@@ -429,8 +433,10 @@ simulate_agreement_dichot8020_5item <- function(sva, lambda){
   test1 <- iterate1 %>% transmute_all(~dplyr::if_else(. > -.84, 1, 0))
   
   sum1 <- test1 %>% transmute(sum1 = rowSums(.))
-  
-  iterate2 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+
+  theta_B <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  
+    
+  iterate2 <- map(1:nitems, ~theta_B * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate2)
   
   iterate2 <- as.data.frame(iterate2)
@@ -464,79 +470,27 @@ simulate_agreement_dichot8020_5item <- function(sva, lambda){
 
 # 10 item
 
-simulate_agreement_likertnorm_10item <- function(sva, lambda){
+simulate_agreement_likertnorm_10item <- function(sv, lambda){
   
   nitems = 10
   obs = 200000
-  
-  theta <- rnorm(200000, 0, 1)
-  
-  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
-  
-  iterate1 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
-  bind_rows(iterate1)
-  
-  iterate1 <- as.data.frame(iterate1)
-  
+  theta <- rnorm(200000, 0, 1) #simulate theta
   prob_5cat <- c(.1, .2, .4, .2, .1)
   
-  test1 <- iterate1 %>% transmute_all(~norm2likert(., prob = prob_5cat))
+  theta_A <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  #simulate theta A
   
-  sum1 <- test1 %>% transmute(sum1 = rowSums(.))
-  
-  iterate2 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
-  bind_rows(iterate2)
-  
-  iterate2 <- as.data.frame(iterate2)
-  
-  test2 <- iterate2 %>% transmute_all(~norm2likert(., prob = prob_5cat))
-  
-  sum2 <- test2 %>% transmute(sum2 = rowSums(.))
-  
-  d_data <- cbind.data.frame(sum1, sum2)
-  
-  discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
-  
-  reliability_absolute_results <- discrepancy_data %>% filter(d < 4)
-  reliability_absolute <- length(reliability_absolute_results$d)/obs
-  reliability_absolute
-  
-  reliability_approx_results <- discrepancy_data %>% filter(d >= 4 & d < 8) 
-  reliability_approx <- length(reliability_approx_results$d)/obs
-  reliability_approx
-  
-  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 8)
-  reliability_nottrue <- length(reliability_nottrue_results$d)/obs
-  reliability_nottrue
-  
-  
-  diff_results <- c("absolute agreement" = reliability_absolute, "approximate agreement" = reliability_approx,
-                    "loose agreement" = reliability_nottrue)
-  return(diff_results)
-  
-}
-
-simulate_agreement_likertskew_10item <- function(sva, lambda){
-  
-  nitems = 10
-  obs = 200000
-  
-  theta <- rnorm(200000, 0, 1)
-  
-  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
-  
-  iterate1 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  iterate1 <- map(1:nitems, ~theta_A * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate1)
   
   iterate1 <- as.data.frame(iterate1)
   
-  prob_5cat <- c(.4, .25, .18, .13, .04)
-  
   test1 <- iterate1 %>% transmute_all(~norm2likert(., prob = prob_5cat))
   
   sum1 <- test1 %>% transmute(sum1 = rowSums(.))
   
-  iterate2 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  theta_B <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1) #simulate theta B
+  
+  iterate2 <- map(1:nitems, ~theta_B * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate2)
   
   iterate2 <- as.data.frame(iterate2)
@@ -568,16 +522,69 @@ simulate_agreement_likertskew_10item <- function(sva, lambda){
   
 }
 
-simulate_agreement_dichot5050_10item <- function(sva, lambda){
+simulate_agreement_likertskew_10item <- function(sv, lambda){
+  
+  nitems = 10
+  obs = 200000
+  
+  theta <- rnorm(200000, 0, 1)
+  prob_5cat <- c(.4, .25, .18, .13, .04)
+  
+  theta_A <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  #simulate theta A
+  
+  iterate1 <- map(1:nitems, ~theta_A * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  bind_rows(iterate1)
+  
+  iterate1 <- as.data.frame(iterate1)
+  
+  test1 <- iterate1 %>% transmute_all(~norm2likert(., prob = prob_5cat))
+  
+  sum1 <- test1 %>% transmute(sum1 = rowSums(.))
+  
+  theta_B <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1) #simulate theta B
+  
+  iterate2 <- map(1:nitems, ~theta_B * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  bind_rows(iterate2)
+  
+  iterate2 <- as.data.frame(iterate2)
+  
+  test2 <- iterate2 %>% transmute_all(~norm2likert(., prob = prob_5cat))
+  
+  sum2 <- test2 %>% transmute(sum2 = rowSums(.))
+  
+  d_data <- cbind.data.frame(sum1, sum2)
+  
+  discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
+  
+  reliability_absolute_results <- discrepancy_data %>% filter(d < 4)
+  reliability_absolute <- length(reliability_absolute_results$d)/obs
+  reliability_absolute
+  
+  reliability_approx_results <- discrepancy_data %>% filter(d >= 4 & d < 8) 
+  reliability_approx <- length(reliability_approx_results$d)/obs
+  reliability_approx
+  
+  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 8)
+  reliability_nottrue <- length(reliability_nottrue_results$d)/obs
+  reliability_nottrue
+  
+  
+  diff_results <- c("absolute agreement" = reliability_absolute, "approximate agreement" = reliability_approx,
+                    "loose agreement" = reliability_nottrue)
+  return(diff_results)
+  
+}
+
+simulate_agreement_dichot5050_10item <- function(sv, lambda){
   
   nitems = 10
   obs = 200000
   
   theta <- rnorm(200000, 0, 1)
   
-  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
+  theta_A <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  
   
-  iterate1 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  iterate1 <- map(1:nitems, ~theta_A * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate1)
   
   iterate1 <- as.data.frame(iterate1)
@@ -586,7 +593,9 @@ simulate_agreement_dichot5050_10item <- function(sva, lambda){
   
   sum1 <- test1 %>% transmute(sum1 = rowSums(.))
   
-  iterate2 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  theta_B <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  
+  
+  iterate2 <- map(1:nitems, ~theta_B * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate2)
   
   iterate2 <- as.data.frame(iterate2)
@@ -618,16 +627,16 @@ simulate_agreement_dichot5050_10item <- function(sva, lambda){
   
 }
 
-simulate_agreement_dichot8020_10item <- function(sva, lambda){
+simulate_agreement_dichot8020_10item <- function(sv, lambda){
   
   nitems = 10
   obs = 200000
   
   theta <- rnorm(200000, 0, 1)
   
-  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
+  theta_A <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  
   
-  iterate1 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  iterate1 <- map(1:nitems, ~theta_A * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate1)
   
   iterate1 <- as.data.frame(iterate1)
@@ -636,7 +645,9 @@ simulate_agreement_dichot8020_10item <- function(sva, lambda){
   
   sum1 <- test1 %>% transmute(sum1 = rowSums(.))
   
-  iterate2 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  theta_B <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  
+  
+  iterate2 <- map(1:nitems, ~theta_B * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate2)
   
   iterate2 <- as.data.frame(iterate2)
@@ -669,79 +680,81 @@ simulate_agreement_dichot8020_10item <- function(sva, lambda){
 
 #15 item
 
-simulate_agreement_likertnorm_15item <- function(sva, lambda){
+simulate_agreement_likertnorm_15item <- function(sv, lambda){
   
   nitems = 15
   obs = 200000
   
-  theta <- rnorm(200000, 0, 1)
-  
-  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
-  
-  iterate1 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
-  bind_rows(iterate1)
-  
-  iterate1 <- as.data.frame(iterate1)
-  
+  theta <- rnorm(200000, 0, 1) #simulate theta
   prob_5cat <- c(.1, .2, .4, .2, .1)
   
-  test1 <- iterate1 %>% transmute_all(~norm2likert(., prob = prob_5cat))
+  theta_A <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  #simulate theta A
   
-  sum1 <- test1 %>% transmute(sum1 = rowSums(.))
-  
-  iterate2 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
-  bind_rows(iterate2)
-  
-  iterate2 <- as.data.frame(iterate2)
-  
-  test2 <- iterate2 %>% transmute_all(~norm2likert(., prob = prob_5cat))
-  
-  sum2 <- test2 %>% transmute(sum2 = rowSums(.))
-  
-  d_data <- cbind.data.frame(sum1, sum2)
-  
-  discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
-  
-  reliability_absolute_results <- discrepancy_data %>% filter(d < 6)
-  reliability_absolute <- length(reliability_absolute_results$d)/obs
-  reliability_absolute
-  
-  reliability_approx_results <- discrepancy_data %>% filter(d >= 6 & d < 12) 
-  reliability_approx <- length(reliability_approx_results$d)/obs
-  reliability_approx
-  
-  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 12)
-  reliability_nottrue <- length(reliability_nottrue_results$d)/obs
-  reliability_nottrue
-  
-  
-  diff_results <- c("absolute agreement" = reliability_absolute, "approximate agreement" = reliability_approx,
-                    "loose agreement" = reliability_nottrue)
-  return(diff_results)
-  
-}
-
-simulate_agreement_likertskew_15item <- function(sva, lambda){
-  
-  nitems = 15
-  obs = 200000
-  
-  theta <- rnorm(200000, 0, 1)
-  
-  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
-  
-  iterate1 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  iterate1 <- map(1:nitems, ~theta_A * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate1)
   
   iterate1 <- as.data.frame(iterate1)
   
+  test1 <- iterate1 %>% transmute_all(~norm2likert(., prob = prob_5cat))
+  
+  sum1 <- test1 %>% transmute(sum1 = rowSums(.))
+  
+  theta_B <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1) #simulate theta B
+  
+  iterate2 <- map(1:nitems, ~theta_B * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  bind_rows(iterate2)
+  
+  iterate2 <- as.data.frame(iterate2)
+  
+  test2 <- iterate2 %>% transmute_all(~norm2likert(., prob = prob_5cat))
+  
+  sum2 <- test2 %>% transmute(sum2 = rowSums(.))
+  
+  d_data <- cbind.data.frame(sum1, sum2)
+  
+  discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
+  
+  reliability_absolute_results <- discrepancy_data %>% filter(d < 6)
+  reliability_absolute <- length(reliability_absolute_results$d)/obs
+  reliability_absolute
+  
+  reliability_approx_results <- discrepancy_data %>% filter(d >= 6 & d < 12) 
+  reliability_approx <- length(reliability_approx_results$d)/obs
+  reliability_approx
+  
+  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 12)
+  reliability_nottrue <- length(reliability_nottrue_results$d)/obs
+  reliability_nottrue
+  
+  
+  diff_results <- c("absolute agreement" = reliability_absolute, "approximate agreement" = reliability_approx,
+                    "loose agreement" = reliability_nottrue)
+  return(diff_results)
+  
+}
+
+simulate_agreement_likertskew_15item <- function(sv, lambda){
+  
+  nitems = 15
+  obs = 200000
+  
+  theta <- rnorm(200000, 0, 1)
   prob_5cat <- c(.4, .25, .18, .13, .04)
+  
+  theta_A <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  #simulate theta A
+  
+  iterate1 <- map(1:nitems, ~theta_A * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  bind_rows(iterate1)
+  
+  iterate1 <- as.data.frame(iterate1)
   
   test1 <- iterate1 %>% transmute_all(~norm2likert(., prob = prob_5cat))
   
   sum1 <- test1 %>% transmute(sum1 = rowSums(.))
   
-  iterate2 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  theta_B <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1) #simulate theta B
+  
+  iterate2 <- map(1:nitems, ~theta_B * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate2)
   
   iterate2 <- as.data.frame(iterate2)
@@ -772,16 +785,16 @@ simulate_agreement_likertskew_15item <- function(sva, lambda){
   
 }
 
-simulate_agreement_dichot5050_15item <- function(sva, lambda){
+simulate_agreement_dichot5050_15item <- function(sv, lambda){
   
   nitems = 15
   obs = 200000
   
   theta <- rnorm(200000, 0, 1)
   
-  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
+  theta_A <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  
   
-  iterate1 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  iterate1 <- map(1:nitems, ~theta_A * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate1)
   
   iterate1 <- as.data.frame(iterate1)
@@ -790,7 +803,9 @@ simulate_agreement_dichot5050_15item <- function(sva, lambda){
   
   sum1 <- test1 %>% transmute(sum1 = rowSums(.))
   
-  iterate2 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  theta_B <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  
+  
+  iterate2 <- map(1:nitems, ~theta_B * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate2)
   
   iterate2 <- as.data.frame(iterate2)
@@ -822,16 +837,16 @@ simulate_agreement_dichot5050_15item <- function(sva, lambda){
   
 }
 
-simulate_agreement_dichot8020_15item <- function(sva, lambda){
+simulate_agreement_dichot8020_15item <- function(sv, lambda){
   
   nitems = 15
   obs = 200000
   
   theta <- rnorm(200000, 0, 1)
   
-  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
+  theta_A <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  
   
-  iterate1 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  iterate1 <- map(1:nitems, ~theta_A * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate1)
   
   iterate1 <- as.data.frame(iterate1)
@@ -840,7 +855,9 @@ simulate_agreement_dichot8020_15item <- function(sva, lambda){
   
   sum1 <- test1 %>% transmute(sum1 = rowSums(.))
   
-  iterate2 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  theta_B <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  
+  
+  iterate2 <- map(1:nitems, ~theta_B * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate2)
   
   iterate2 <- as.data.frame(iterate2)
@@ -873,79 +890,77 @@ simulate_agreement_dichot8020_15item <- function(sva, lambda){
 
 # 20 items
 
-simulate_agreement_likertnorm_20item <- function(sva, lambda){
+simulate_agreement_likertnorm_20item <- function(sv, lambda){
   
-  nitems = 20
-  obs = 200000
-  
-  theta <- rnorm(200000, 0, 1)
-  
-  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
-  
-  iterate1 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
-  bind_rows(iterate1)
-  
-  iterate1 <- as.data.frame(iterate1)
-  
+  theta <- rnorm(200000, 0, 1) #simulate theta
   prob_5cat <- c(.1, .2, .4, .2, .1)
   
-  test1 <- iterate1 %>% transmute_all(~norm2likert(., prob = prob_5cat))
+  theta_A <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  #simulate theta A
   
-  sum1 <- test1 %>% transmute(sum1 = rowSums(.))
-  
-  iterate2 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
-  bind_rows(iterate2)
-  
-  iterate2 <- as.data.frame(iterate2)
-  
-  test2 <- iterate2 %>% transmute_all(~norm2likert(., prob = prob_5cat))
-  
-  sum2 <- test2 %>% transmute(sum2 = rowSums(.))
-  
-  d_data <- cbind.data.frame(sum1, sum2)
-  
-  discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
-  
-  reliability_absolute_results <- discrepancy_data %>% filter(d < 8)
-  reliability_absolute <- length(reliability_absolute_results$d)/obs
-  reliability_absolute
-  
-  reliability_approx_results <- discrepancy_data %>% filter(d >= 8 & d < 16) 
-  reliability_approx <- length(reliability_approx_results$d)/obs
-  reliability_approx
-  
-  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 16)
-  reliability_nottrue <- length(reliability_nottrue_results$d)/obs
-  reliability_nottrue
-  
-  
-  diff_results <- c("absolute agreement" = reliability_absolute, "approximate agreement" = reliability_approx,
-                    "loose agreement" = reliability_nottrue)
-  return(diff_results)
-  
-}
-
-simulate_agreement_likertskew_20item <- function(sva, lambda){
-  
-  nitems = 20
-  obs = 200000
-  
-  theta <- rnorm(200000, 0, 1)
-  
-  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
-  
-  iterate1 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  iterate1 <- map(1:nitems, ~theta_A * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate1)
   
   iterate1 <- as.data.frame(iterate1)
   
+  test1 <- iterate1 %>% transmute_all(~norm2likert(., prob = prob_5cat))
+  
+  sum1 <- test1 %>% transmute(sum1 = rowSums(.))
+  
+  theta_B <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1) #simulate theta B
+  
+  iterate2 <- map(1:nitems, ~theta_B * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  bind_rows(iterate2)
+  
+  iterate2 <- as.data.frame(iterate2)
+  
+  test2 <- iterate2 %>% transmute_all(~norm2likert(., prob = prob_5cat))
+  
+  sum2 <- test2 %>% transmute(sum2 = rowSums(.))
+  
+  d_data <- cbind.data.frame(sum1, sum2)
+  
+  discrepancy_data <- d_data %>% mutate(d = sqrt((sum1-sum2)^2))
+  
+  reliability_absolute_results <- discrepancy_data %>% filter(d < 8)
+  reliability_absolute <- length(reliability_absolute_results$d)/obs
+  reliability_absolute
+  
+  reliability_approx_results <- discrepancy_data %>% filter(d >= 8 & d < 16) 
+  reliability_approx <- length(reliability_approx_results$d)/obs
+  reliability_approx
+  
+  reliability_nottrue_results <- discrepancy_data %>% filter(d >= 16)
+  reliability_nottrue <- length(reliability_nottrue_results$d)/obs
+  reliability_nottrue
+  
+  
+  diff_results <- c("absolute agreement" = reliability_absolute, "approximate agreement" = reliability_approx,
+                    "loose agreement" = reliability_nottrue)
+  return(diff_results)
+  
+}
+
+simulate_agreement_likertskew_20item <- function(sv, lambda){
+  
+  nitems = 20
+  obs = 200000
+  theta <- rnorm(200000, 0, 1)
   prob_5cat <- c(.4, .25, .18, .13, .04)
+  
+  theta_A <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  #simulate theta A
+  
+  iterate1 <- map(1:nitems, ~theta_A * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  bind_rows(iterate1)
+  
+  iterate1 <- as.data.frame(iterate1)
   
   test1 <- iterate1 %>% transmute_all(~norm2likert(., prob = prob_5cat))
   
   sum1 <- test1 %>% transmute(sum1 = rowSums(.))
   
-  iterate2 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  theta_B <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1) #simulate theta B
+  
+  iterate2 <- map(1:nitems, ~theta_B * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate2)
   
   iterate2 <- as.data.frame(iterate2)
@@ -976,16 +991,16 @@ simulate_agreement_likertskew_20item <- function(sva, lambda){
   
 }
 
-simulate_agreement_dichot5050_20item <- function(sva, lambda){
+simulate_agreement_dichot5050_20item <- function(sv, lambda){
   
   nitems = 20
   obs = 200000
   
   theta <- rnorm(200000, 0, 1)
   
-  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
+  theta_A <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  
   
-  iterate1 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  iterate1 <- map(1:nitems, ~theta_A * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate1)
   
   iterate1 <- as.data.frame(iterate1)
@@ -994,7 +1009,9 @@ simulate_agreement_dichot5050_20item <- function(sva, lambda){
   
   sum1 <- test1 %>% transmute(sum1 = rowSums(.))
   
-  iterate2 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  theta_B <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  
+  
+  iterate2 <- map(1:nitems, ~theta_B * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate2)
   
   iterate2 <- as.data.frame(iterate2)
@@ -1026,16 +1043,16 @@ simulate_agreement_dichot5050_20item <- function(sva, lambda){
   
 }
 
-simulate_agreement_dichot8020_20item <- function(sva, lambda){
+simulate_agreement_dichot8020_20item <- function(sv, lambda){
   
   nitems = 20
   obs = 200000
   
   theta <- rnorm(200000, 0, 1)
   
-  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
+  theta_A <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  
   
-  iterate1 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  iterate1 <- map(1:nitems, ~theta_A * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate1)
   
   iterate1 <- as.data.frame(iterate1)
@@ -1044,7 +1061,9 @@ simulate_agreement_dichot8020_20item <- function(sva, lambda){
   
   sum1 <- test1 %>% transmute(sum1 = rowSums(.))
   
-  iterate2 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  theta_B <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  
+  
+  iterate2 <- map(1:nitems, ~theta_B * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate2)
   
   iterate2 <- as.data.frame(iterate2)
@@ -1077,27 +1096,27 @@ simulate_agreement_dichot8020_20item <- function(sva, lambda){
 
 #25 item
 
-simulate_agreement_likertnorm_25item <- function(sva, lambda){
+simulate_agreement_likertnorm_25item <- function(sv, lambda){
   
   nitems = 25
   obs = 200000
+  theta <- rnorm(200000, 0, 1) #simulate theta
+  prob_5cat <- c(.1, .2, .4, .2, .1)
   
-  theta <- rnorm(200000, 0, 1)
+  theta_A <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  #simulate theta A
   
-  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
-  
-  iterate1 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  iterate1 <- map(1:nitems, ~theta_A * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate1)
   
   iterate1 <- as.data.frame(iterate1)
-  
-  prob_5cat <- c(.1, .2, .4, .2, .1)
   
   test1 <- iterate1 %>% transmute_all(~norm2likert(., prob = prob_5cat))
   
   sum1 <- test1 %>% transmute(sum1 = rowSums(.))
   
-  iterate2 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  theta_B <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1) #simulate theta B
+  
+  iterate2 <- map(1:nitems, ~theta_B * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate2)
   
   iterate2 <- as.data.frame(iterate2)
@@ -1129,27 +1148,28 @@ simulate_agreement_likertnorm_25item <- function(sva, lambda){
   
 }
 
-simulate_agreement_likertskew_25item <- function(sva, lambda){
+simulate_agreement_likertskew_25item <- function(sv, lambda){
   
   nitems = 25
   obs = 200000
   
   theta <- rnorm(200000, 0, 1)
+  prob_5cat <- c(.4, .25, .18, .13, .04)
   
-  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
+  theta_A <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  #simulate theta A
   
-  iterate1 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  iterate1 <- map(1:nitems, ~theta_A * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate1)
   
   iterate1 <- as.data.frame(iterate1)
-  
-  prob_5cat <- c(.4, .25, .18, .13, .04)
   
   test1 <- iterate1 %>% transmute_all(~norm2likert(., prob = prob_5cat))
   
   sum1 <- test1 %>% transmute(sum1 = rowSums(.))
   
-  iterate2 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  theta_B <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1) #simulate theta B
+  
+  iterate2 <- map(1:nitems, ~theta_B * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate2)
   
   iterate2 <- as.data.frame(iterate2)
@@ -1180,16 +1200,16 @@ simulate_agreement_likertskew_25item <- function(sva, lambda){
   
 }
 
-simulate_agreement_dichot5050_25item <- function(sva, lambda){
+simulate_agreement_dichot5050_25item <- function(sv, lambda){
   
   nitems = 25
   obs = 200000
   
   theta <- rnorm(200000, 0, 1)
   
-  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
+  theta_A <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  
   
-  iterate1 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  iterate1 <- map(1:nitems, ~theta_A * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate1)
   
   iterate1 <- as.data.frame(iterate1)
@@ -1198,7 +1218,9 @@ simulate_agreement_dichot5050_25item <- function(sva, lambda){
   
   sum1 <- test1 %>% transmute(sum1 = rowSums(.))
   
-  iterate2 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  theta_B <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  
+  
+  iterate2 <- map(1:nitems, ~theta_B * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate2)
   
   iterate2 <- as.data.frame(iterate2)
@@ -1230,16 +1252,16 @@ simulate_agreement_dichot5050_25item <- function(sva, lambda){
   
 }
 
-simulate_agreement_dichot8020_25item <- function(sva, lambda){
+simulate_agreement_dichot8020_25item <- function(sv, lambda){
   
   nitems = 25
   obs = 200000
   
   theta <- rnorm(200000, 0, 1)
   
-  SVA_theta <- theta * sva + sqrt((1 - sva^2)) * rnorm(200000, 0, 1)  
+  theta_A <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  
   
-  iterate1 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  iterate1 <- map(1:nitems, ~theta_A * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate1)
   
   iterate1 <- as.data.frame(iterate1)
@@ -1248,7 +1270,9 @@ simulate_agreement_dichot8020_25item <- function(sva, lambda){
   
   sum1 <- test1 %>% transmute(sum1 = rowSums(.))
   
-  iterate2 <- map(1:nitems, ~SVA_theta * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
+  theta_B <- theta * sv + sqrt((1 - sv^2)) * rnorm(200000, 0, 1)  
+  
+  iterate2 <- map(1:nitems, ~theta_B * lambda + sqrt((1-lambda^2)) * rnorm(200000, 0, 1)) %>% set_names(letters[1:nitems])
   bind_rows(iterate2)
   
   iterate2 <- as.data.frame(iterate2)
